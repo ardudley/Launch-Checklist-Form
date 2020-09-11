@@ -8,41 +8,49 @@ window.addEventListener("load", function() {
     let fuelLevelInput = document.querySelector("input[name=fuelLevel]");
     let cargoMassInput = document.querySelector("input[name=cargoMass]");
 
+    //Check that input is entered
+
     if (pilotNameInput.value === "" || copilotNameInput.value === "" 
     || fuelLevelInput.value === "" || cargoMassInput.value === ""){
       alert("All fields required.");
       event.preventDefault();
+    //Check that input type is valid
+
     } else if (isNaN(pilotNameInput.value) === false || isNaN(copilotNameInput.value) === false
     || isNaN(fuelLevelInput.value) === true || isNaN(cargoMassInput.value) === true){
       alert("Make sure to enter valid information for each field!");
       event.preventDefault();
-    }
-
-    let faultyItemsInput = document.getElementById("faultyItems");
-    let launchStatusInput = document.getElementById("launchStatus");
-    let pilotStatusInput = document.getElementById("pilotStatus");
-    let copilotStatusInput = document.getElementById("copilotStatus");
-    let fuelStatusInput = document.getElementById("fuelStatus");
-    let cargoStatusInput = document.getElementById("cargoStatus");
-
-    function flightNotReady() {
-      faultyItemsInput.style.visibility = "visible";
-      launchStatusInput.innerHTML = `Shuttle not ready for launch`;
-      launchStatusInput.style.color = "red"; 
-    };
-    if (fuelLevelInput.value < 10000) {
-      flightNotReady();
-      fuelStatusInput.innerHTML = `Fuel level too low for launch`;
-    } else if (cargoMassInput.value > 10000) {
-      flightNotReady();
-      cargoStatusInput.innerHTML = `Too much Cargo mass for launch`;
     } else {
-      launchStatusInput.innerHTML = `Shuttle is ready for launch`;
-      launchStatusInput.style.color = "green";
-    };
+      let faultyItemsInput = document.getElementById("faultyItems");
+      let launchStatusInput = document.getElementById("launchStatus");
+      let pilotStatusInput = document.getElementById("pilotStatus");
+      let copilotStatusInput = document.getElementById("copilotStatus");
+      let fuelStatusInput = document.getElementById("fuelStatus");
+      let cargoStatusInput = document.getElementById("cargoStatus");
+
+      //Check that flight requirements are met.  Add pilot and co-pilot information.
+
+      function flightNotReady() {
+        faultyItemsInput.style.visibility = "visible";
+        launchStatusInput.innerHTML = `Shuttle not ready for launch`;
+        launchStatusInput.style.color = "red"; 
+      };
+
+      if (fuelLevelInput.value < 10000) {
+        flightNotReady();
+        fuelStatusInput.innerHTML = `Fuel level too low for launch`;
+      } else if (cargoMassInput.value > 10000) {
+        flightNotReady();
+        cargoStatusInput.innerHTML = `Too much Cargo mass for launch`;
+      } else {
+        launchStatusInput.innerHTML = `Shuttle is ready for launch`;
+        launchStatusInput.style.color = "green";
+      };
+
       pilotStatusInput.innerHTML = `Pilot ${pilotNameInput.value} is ready.`;
       copilotStatusInput.innerHTML = `Co-Pilot ${copilotNameInput.value} is ready.`;
       event.preventDefault();
+    };
   });
 });
 
